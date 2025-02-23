@@ -8,6 +8,7 @@ public class CalcRoleSuccessChance : MonoBehaviour
     public int playerDanceStat = 3;
     public int roleSingStat = 5;
     public int roleDanceStat = 0;
+    public string roleName;
     private int rngNum;
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,10 @@ public class CalcRoleSuccessChance : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+    }
+
+    void OnMouseOver() {
         
     }
 }
