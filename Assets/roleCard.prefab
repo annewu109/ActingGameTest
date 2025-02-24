@@ -523,8 +523,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6813867533813421561}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -61, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -563,6 +563,13 @@ MonoBehaviour:
   playerDanceStat: 3
   roleSingStat: 5
   roleDanceStat: 0
+  showPoints: 10
+  roleName: Pig
+  danceStatDisplay: {fileID: 2763813398878980533}
+  singStatDisplay: {fileID: 6205766326249751317}
+  showPtDisplay: {fileID: 5492602923051750624}
+  roleNameDisplay: {fileID: 716908702636395360}
+  mySprite: {fileID: 0}
 --- !u!1 &7131703933980977920
 GameObject:
   m_ObjectHideFlags: 0
