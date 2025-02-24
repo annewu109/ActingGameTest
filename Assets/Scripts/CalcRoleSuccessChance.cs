@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class CalcRoleSuccessChance : MonoBehaviour
 {
@@ -10,12 +11,13 @@ public class CalcRoleSuccessChance : MonoBehaviour
     public int roleSingStat = 5;
     public int roleDanceStat = 0;
     public int showPoints = 10;
+    public Sprite mySprite;
     public string roleName;
     public TextMeshProUGUI danceStatDisplay;
     public TextMeshProUGUI singStatDisplay;
     public TextMeshProUGUI showPtDisplay;
     public TextMeshProUGUI roleNameDisplay;
-    public SpriteRenderer mySprite;
+    public GameObject roleSprite;
     private int rngNum;
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,7 @@ public class CalcRoleSuccessChance : MonoBehaviour
         singStatDisplay.text = roleSingStat.ToString();
         showPtDisplay.text = showPoints.ToString();
         roleNameDisplay.text = roleName;
+        roleSprite.GetComponent<Image>().sprite = mySprite;
         
         //pick a random num between 0 and 100
         rngNum = Random.Range(0, 101);
