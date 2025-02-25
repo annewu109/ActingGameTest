@@ -23,6 +23,8 @@ public class SceneManager : MonoBehaviour
     bool small = false;
     private static int index;
     
+
+
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -42,7 +44,6 @@ public class SceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        index = Dialogue.getIndex();
         if (index == 10) {
             buttonHandler();
         }
@@ -56,7 +57,6 @@ public class SceneManager : MonoBehaviour
         smallCardOne.gameObject.SetActive(true);
         smallCardTwo.gameObject.SetActive(true);
         smallCardThree.gameObject.SetActive(true);
-
     }
 
     void buttonClicked(string role) {
@@ -66,7 +66,6 @@ public class SceneManager : MonoBehaviour
         smallCardTwo.gameObject.SetActive(false);
         smallCardThree.gameObject.SetActive(false);
     }
-
 
 
 //scene stuff
