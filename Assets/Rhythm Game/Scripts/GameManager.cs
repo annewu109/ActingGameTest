@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour {
     public float perfectHits;
     public float missedHits;
 
+    public Button continueButton;
+
     public GameObject resultsScreen;
     public Text percentHitText, normalsText, goodsText, perfectsText, missesText, rankText, finalScoreText;
     // Use this for initialization
@@ -41,7 +43,9 @@ public class GameManager : MonoBehaviour {
         currentMultiplier = 1;
 
         totalNotes = FindObjectsOfType<NoteObject>().Length;
+        continueButton.gameObject.SetActive(false);
     }
+
 
     // Update is called once per frame
     void Update () {
@@ -96,6 +100,10 @@ public class GameManager : MonoBehaviour {
                 rankText.text = rankVal;
 
                 finalScoreText.text = currentScore.ToString();
+
+                continueButton.gameObject.SetActive(true);
+
+
             }
         }
     }
@@ -156,4 +164,5 @@ public class GameManager : MonoBehaviour {
 
         missedHits++;
     }
+
 }

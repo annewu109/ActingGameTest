@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
  
 public class Dialogue : MonoBehaviour {
     public TextMeshProUGUI textComponent;
-    public string name;
     private string[] sentences = {
     "Hello there! I’m so glad you’ve decided to join our company. I’m the Director here, and I’m always looking for new talent.", 
     "During your time here, you will pass through three rounds of auditions, each for progressively harder roles. The experience you gather with your starting roles will inform your chances later on.",
@@ -17,7 +16,8 @@ public class Dialogue : MonoBehaviour {
     "Looks like you’re getting the hang of it!", "Now that you have some experience, let’s move onto your first round of auditions. I have three roles that you may be suited for.",
     "Remember, your vocal and dance skills will factor into your probability of cinching the role!",
     "Which role would you like to audition for?",
-    "Good choice! Let me get everything set up for your audition..."
+    ""
+    // , "Good choice! Let me get everything set up for your audition..."
     };
 
     private string[] first_audition_fail = {
@@ -61,25 +61,14 @@ public class Dialogue : MonoBehaviour {
     }
  
     void Update(){
-        // DialogueManager dm = gameObject.GetComponent<DialogueManager>();
-        // dialogueValid = DialogueManager.get_dialogueValid();
-
         if (index == 5) {
             buttonSing.gameObject.SetActive(true);
             buttonDance.gameObject.SetActive(true);
-
-        }
-        else if (index == 6) {
-            buttonSing.gameObject.SetActive(false);
-            buttonDance.gameObject.SetActive(false);
-
         }
 
-        else if (index == 10) {
-            Panel.gameObject.SetActive(false);
-            index = SceneManager.setIndex();
+        else if (index == 9) {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Anne-Work");
         }
-
 
         else if (index == 11) {
             Panel.gameObject.SetActive(true);
@@ -94,7 +83,6 @@ public class Dialogue : MonoBehaviour {
             index = 0;
         }
 
-        // if (dialogueValid) {
             if (Input.GetKeyDown(KeyCode.Space)) {
 
                 if (textComponent.text == sentences[index]) {
@@ -106,8 +94,6 @@ public class Dialogue : MonoBehaviour {
                 }
         
             }
-        // }
-
 
     }
 
@@ -138,6 +124,12 @@ public class Dialogue : MonoBehaviour {
         else {
             gameObject.SetActive(false);
         }
+    }
+
+    public void hideButtons() {
+        index = 6;
+        buttonSing.gameObject.SetActive(false);
+        buttonDance.gameObject.SetActive(false);
     }
 
 }
