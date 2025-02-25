@@ -8,12 +8,12 @@ public class Dialogue : MonoBehaviour {
     public TextMeshProUGUI textComponent;
     public string name;
     private string[] sentences = {
-    "Hello there! I’m so glad you’ve decided to join our company. I’m Director LastName, and I’m always looking for new talent.", 
+    "Hello there! I’m so glad you’ve decided to join our company. I’m the Director here, and I’m always looking for new talent.", 
     "During your time here, you will pass through three rounds of auditions, each for progressively harder roles. The experience you gather with your starting roles will inform your chances later on.",
     "Who knows? Maybe you can be among the ones who make it to the top!",
     "Now, I know you don’t have a lot of experience in the entertainment industry, so how about this? Instead of just throwing you into your first audition, I’ll give you a chance to hone your skills.",
     "Singing and dancing are both vital skills you’ll need for a lot of roles. Which one would you like to train?",
-    "",
+    "Good luck!",
     "Looks like you’re getting the hang of it!", "Now that you have some experience, let’s move onto your first round of auditions. I have three roles that you may be suited for.",
     "Remember, your vocal and dance skills will factor into your probability of cinching the role!",
     "Which role would you like to audition for?",
@@ -67,7 +67,6 @@ public class Dialogue : MonoBehaviour {
         if (index == 5) {
             buttonSing.gameObject.SetActive(true);
             buttonDance.gameObject.SetActive(true);
-            // dialogueValid = false;
 
         }
         else if (index == 6) {
