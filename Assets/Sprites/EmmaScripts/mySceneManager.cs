@@ -8,8 +8,8 @@ public class SceneManager : MonoBehaviour
 {
     private static int index;
     
-    public GameObject canvas;
-    public GameObject dialogueEventSystem;
+    // public GameObject canvas;
+    // public GameObject dialogueEventSystem;
 
     void Start()
     {
@@ -30,12 +30,10 @@ public class SceneManager : MonoBehaviour
         //     canvas.SetActive(true);
         // }
 
-        if (UnityEngine.SceneManagement.SceneManager.sceneCount <= 1) {
-            canvas.SetActive(true);
-        }
-        if (UnityEngine.SceneManagement.SceneManager.sceneCount <= 1) {
-            dialogueEventSystem.SetActive(true);
-        }
+        // if (UnityEngine.SceneManagement.SceneManager.sceneCount <= 1) {
+        //     canvas.SetActive(true);
+        //     dialogueEventSystem.SetActive(true);
+        // }
 
     }
 
@@ -45,10 +43,8 @@ public class SceneManager : MonoBehaviour
     }
 
     public void scene_changer_additive(string scene_name){
-        canvas.SetActive(false);
-        dialogueEventSystem.SetActive(false);
         UnityEngine.SceneManagement.SceneManager.LoadScene(scene_name, LoadSceneMode.Additive);
-        UnityEngine.SceneManagement.SceneManager.SetActiveScene(UnityEngine.SceneManagement.SceneManager.GetSceneByName(scene_name));
+        // UnityEngine.SceneManagement.SceneManager.SetActiveScene(UnityEngine.SceneManagement.SceneManager.GetSceneByName(scene_name));
         
 
     }

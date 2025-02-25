@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour {
     public float missedHits;
 
     public Button continueButton;
+    public GameObject startScreen;
 
     public GameObject resultsScreen;
     public Text percentHitText, normalsText, goodsText, perfectsText, missesText, rankText, finalScoreText;
@@ -43,7 +44,9 @@ public class GameManager : MonoBehaviour {
         currentMultiplier = 1;
 
         totalNotes = FindObjectsOfType<NoteObject>().Length;
+        
         continueButton.gameObject.SetActive(false);
+        startScreen.gameObject.SetActive(true);
     }
 
 
@@ -53,6 +56,7 @@ public class GameManager : MonoBehaviour {
         {
             if(Input.anyKeyDown)
             {
+                startScreen.gameObject.SetActive(false);
                 startPlaying = true;
                 theBS.hasStarted = true;
 
