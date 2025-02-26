@@ -9,6 +9,6 @@ public class StartGame : MonoBehaviour
     // Start is called before the first frame update
     public void StartGamePlay()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("dialogue_scene");  // Make sure "GameScene" is the name of your game scene
+        UnityEngine.SceneManagement.SceneManager.LoadScene("emma_work");  // Make sure "GameScene" is the name of your game scene
     }
 }

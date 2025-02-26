@@ -35,19 +35,17 @@ public class CalcRoleSuccessChance : MonoBehaviour
         showPtDisplay.text = showPoints.ToString();
         roleNameDisplay.text = roleName;
         roleSprite.GetComponent<Image>().sprite = mySprite;
-        gotRoleText = GameObject.FindGameObjectWithTag("RoleText").GetComponent<TextMeshProUGUI>();
-
-        gotRoleText.text = "Role Text Detected!";
+        //gotRoleText = GameObject.FindGameObjectWithTag("RoleText").GetComponent<TextMeshProUGUI>();
         
         //pick a random num between 0 and 100
         rngNum = Random.Range(0, 101);
-        Debug.Log("your RNG num is " + rngNum);
+        //Debug.Log("your RNG num is " + rngNum);
         float singProb = (playerSingStat > roleSingStat) ? 1 : (float) playerSingStat / roleSingStat;
         float danceProb = (playerDanceStat > roleDanceStat) ? 1 : (float) playerDanceStat / roleDanceStat;
 
         //both your singing stat and your dancing stat are equally weighted
         percentageChance = singProb * 50 + danceProb * 50;
-        Debug.Log("rngNum: " + rngNum + ", percentageChance: " + percentageChance);
+        //Debug.Log("rngNum: " + rngNum + ", percentageChance: " + percentageChance);
         probabilityText.text = "The chance of getting this role is " + percentageChance.ToString() + "%";
     }
 
@@ -66,6 +64,12 @@ public class CalcRoleSuccessChance : MonoBehaviour
         else {
             gotRoleText.text = "You didn't get the role!";
             gotRole = false;
+        }
+
+        GameObject[] allRoleCardsToDespawn;
+        allRoleCardsToDespawn = GameObject.FindGameObjectsWithTag("RoleCard");
+        foreach (GameObject card in allRoleCardsToDespawn) {
+            Destroy(card);
         }
     }
 }
