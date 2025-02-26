@@ -73,7 +73,7 @@ public class Dialogue : MonoBehaviour {
         }
 
         else if (index == 9) {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Anne-Work");
+            //SceneManager.LoadScene("Anne-Work");
         }
 
         else if (index == 11) {

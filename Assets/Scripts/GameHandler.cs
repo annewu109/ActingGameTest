@@ -40,12 +40,12 @@ public class GameHandler : MonoBehaviour {
             danceText.text = "DANCING: " + danceStat;
       }
 
-public void StartGame() {
+      public void StartGame() {
             SceneManager.LoadScene("Level1");
       }
 
       public void ReturnToLevel1() {
-            SceneManager.LoadScene("Level1");
+            SceneManager.UnloadSceneAsync("RhythmGame");
       }
 
       // Return to MainMenu
@@ -78,11 +78,11 @@ public void StartGame() {
       }
 
       public void GoToSingGame(){
-            SceneManager.LoadScene("RhythmGame");
+            SceneManager.LoadScene("RhythmGame", LoadSceneMode.Additive);
       }
 
       public void GoToDanceGame(){
-            SceneManager.LoadScene("RhythmGame");
+            SceneManager.LoadScene("RhythmGame", LoadSceneMode.Additive);
       }
 
       /*
