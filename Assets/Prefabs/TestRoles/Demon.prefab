@@ -1095,7 +1095,7 @@ GameObject:
   - component: {fileID: 143573736597634532}
   m_Layer: 5
   m_Name: Demon
-  m_TagString: Untagged
+  m_TagString: RoleCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1159,6 +1159,7 @@ MonoBehaviour:
   probabilityText: {fileID: 5808534521577670960}
   gotRoleText: {fileID: 0}
   roleSprite: {fileID: 4518286298975493485}
+  gotRole: 0
 --- !u!114 &143573736597634532
 MonoBehaviour:
   m_ObjectHideFlags: 0

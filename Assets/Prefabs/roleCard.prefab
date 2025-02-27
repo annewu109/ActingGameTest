@@ -781,7 +781,7 @@ GameObject:
   - component: {fileID: 171019070160053009}
   m_Layer: 5
   m_Name: roleCard
-  m_TagString: Untagged
+  m_TagString: RoleCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -846,6 +846,7 @@ MonoBehaviour:
   probabilityText: {fileID: 3204535676231278479}
   gotRoleText: {fileID: 0}
   roleSprite: {fileID: 7383580536700135471}
+  gotRole: 0
 --- !u!1 &7131703933980977920
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,16 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Scarlett_work.unity
-    guid: 38fa745387fe35646b18b30b3d05c0f9
+    path: Assets/Scenes/MainMenu.unity
+    guid: 9687d4f756a354f0386d6efdb02a3505
   - enabled: 1
-    path: Assets/Scenes/emma_work.unity
-    guid: 33ebd4fb383204dc99fbbd51e0520ef4
+    path: Assets/Scenes/Level1.unity
+    guid: 3c349dcaa21a44086a620dd2fa75f8fe
   - enabled: 1
-    path: Assets/Rhythm Game/Scenes/RhythmGame.unity
+    path: Assets/Scenes/RhythmGame.unity
     guid: a7efac3f0da73e7439004acd29203987
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 635b0f4926b644eeab7fbec8a271cdd1
   m_configObjects: {}

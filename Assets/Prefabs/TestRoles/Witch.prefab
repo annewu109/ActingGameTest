@@ -673,7 +673,7 @@ GameObject:
   - component: {fileID: 4279419927969625059}
   m_Layer: 5
   m_Name: Witch
-  m_TagString: Untagged
+  m_TagString: RoleCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -737,6 +737,7 @@ MonoBehaviour:
   probabilityText: {fileID: 3523034039526146107}
   gotRoleText: {fileID: 0}
   roleSprite: {fileID: 6867652308724131955}
+  gotRole: 0
 --- !u!114 &4279419927969625059
 MonoBehaviour:
   m_ObjectHideFlags: 0

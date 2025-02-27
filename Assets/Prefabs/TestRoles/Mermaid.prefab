@@ -495,7 +495,7 @@ GameObject:
   - component: {fileID: -1575584227798756836}
   m_Layer: 5
   m_Name: Mermaid
-  m_TagString: Untagged
+  m_TagString: RoleCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -549,7 +549,7 @@ MonoBehaviour:
   playerDanceStat: 3
   roleSingStat: 4
   roleDanceStat: 2
-  showPoints: 15
+  showPoints: 25
   mySprite: {fileID: 21300000, guid: 4523f3b02b024480381d3d181201a661, type: 3}
   roleName: Mermaid
   danceStatDisplay: {fileID: 3582868275601366468}
@@ -559,6 +559,7 @@ MonoBehaviour:
   probabilityText: {fileID: 8302628197265946518}
   gotRoleText: {fileID: 0}
   roleSprite: {fileID: 3463844666584034873}
+  gotRole: 0
 --- !u!114 &-1575584227798756836
 MonoBehaviour:
   m_ObjectHideFlags: 0
