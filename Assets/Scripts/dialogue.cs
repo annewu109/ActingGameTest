@@ -45,6 +45,7 @@ public class Dialogue : MonoBehaviour {
 
     public GameObject canvas;
     public GameObject dialogueEventSystem;
+    public cardSpawner cs;
 
     public GameObject director;
     public Animator director_anim;
@@ -73,7 +74,11 @@ public class Dialogue : MonoBehaviour {
         }
 
         else if (index == 9) {
-            //SceneManager.LoadScene("Anne-Work");
+            cs.spawnCard();
+            index++;
+            // if (CalcRoleSuccessChance.OnCardClicked()) {
+
+            // }
         }
 
         else if (index == 11) {

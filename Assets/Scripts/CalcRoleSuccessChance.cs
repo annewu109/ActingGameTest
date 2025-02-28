@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class CalcRoleSuccessChance : MonoBehaviour
 {
-    public int playerSingStat = 2;
-    public int playerDanceStat = 3;
     public int roleSingStat = 5;
     public int roleDanceStat = 0;
     public int showPoints = 10;
@@ -20,10 +18,6 @@ public class CalcRoleSuccessChance : MonoBehaviour
     public TextMeshProUGUI probabilityText;
     public TextMeshProUGUI gotRoleText;
     public GameObject roleSprite;
-
-    public bool gotRole;
-    
-    
     
     private int rngNum;
     private float percentageChance;
@@ -40,8 +34,8 @@ public class CalcRoleSuccessChance : MonoBehaviour
         //pick a random num between 0 and 100
         rngNum = Random.Range(0, 101);
         //Debug.Log("your RNG num is " + rngNum);
-        float singProb = (playerSingStat > roleSingStat) ? 1 : (float) playerSingStat / roleSingStat;
-        float danceProb = (playerDanceStat > roleDanceStat) ? 1 : (float) playerDanceStat / roleDanceStat;
+        float singProb = (GameHandler.singStat > roleSingStat) ? 1 : (float) GameHandler.singStat / roleSingStat;
+        float danceProb = (GameHandler.danceStat > roleDanceStat) ? 1 : (float) GameHandler.danceStat / roleDanceStat;
 
         //both your singing stat and your dancing stat are equally weighted
         percentageChance = singProb * 50 + danceProb * 50;
@@ -55,7 +49,8 @@ public class CalcRoleSuccessChance : MonoBehaviour
         
     }
 
-    public void OnCardClicked() {
+    public bool OnCardClicked() {
+        bool gotRole;
         Debug.Log("rngNum: " + rngNum + ", percentageChance: " + percentageChance);
         if (rngNum <= percentageChance) {
             gotRoleText.text = "You got the role!";
@@ -71,5 +66,7 @@ public class CalcRoleSuccessChance : MonoBehaviour
         foreach (GameObject card in allRoleCardsToDespawn) {
             Destroy(card);
         }
+
+        return gotRole;
     }
 }

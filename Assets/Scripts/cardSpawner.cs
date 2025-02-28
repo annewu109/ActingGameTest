@@ -12,7 +12,6 @@ public class cardSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spawnCard();
     }
 
     // Update is called once per frame
@@ -21,10 +20,11 @@ public class cardSpawner : MonoBehaviour
         
     }
 
-    void spawnCard() {
+    public void spawnCard() {
         for (int i = 0; i < spawnPoints.Length; i++)
         {
-            int cardToChoose = Random.Range(0, roleCards.Count);
+            int cardToChoose = Random.Range(0, roleCards.Count - 1);
+            Debug.Log(cardToChoose);
             GameObject cardToSpawn = roleCards[cardToChoose];
             roleCards.Remove(cardToSpawn);
             Instantiate(cardToSpawn, spawnPoints[i].position, Quaternion.identity, canvas);
