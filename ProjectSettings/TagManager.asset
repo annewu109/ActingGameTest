@@ -8,6 +8,7 @@ TagManager:
   - RoleText
   - RoleCard
   - GameHandler
+  - DialogueManager
   layers:
   - Default
   - TransparentFX

@@ -7,6 +7,7 @@ public class cardSpawner : MonoBehaviour
     public Transform canvas;
     public Transform[] spawnPoints;
     public List<GameObject> roleCards;
+    public Dialogue dialogue;
 
 
     // Start is called before the first frame update
@@ -31,7 +32,7 @@ public class cardSpawner : MonoBehaviour
             Instantiate(cardToSpawn, spawnPoints[i].position, Quaternion.identity, canvas);
         }
 
-        Dialogue.index++;
+        dialogue.NextLine();
     }
 
 }

@@ -16,6 +16,9 @@ public class CalcRoleSuccessChance : MonoBehaviour
     public TextMeshProUGUI showPtDisplay;
     public TextMeshProUGUI roleNameDisplay;
     public TextMeshProUGUI probabilityText;
+
+    public GameObject dialogueObject;
+    public Dialogue dialogue;
     public GameObject roleSprite;
     
     private int rngNum;
@@ -28,7 +31,9 @@ public class CalcRoleSuccessChance : MonoBehaviour
         showPtDisplay.text = showPoints.ToString();
         roleNameDisplay.text = roleName;
         roleSprite.GetComponent<Image>().sprite = mySprite;
-        //gotRoleText = GameObject.FindGameObjectWithTag("RoleText").GetComponent<TextMeshProUGUI>();
+
+        dialogueObject = GameObject.FindGameObjectWithTag("DialogueManager");
+        dialogue = dialogueObject.GetComponent<Dialogue>(); //this is broken
         
         //pick a random num between 0 and 100
         rngNum = Random.Range(0, 101);
@@ -65,6 +70,6 @@ public class CalcRoleSuccessChance : MonoBehaviour
         }
 
         GameHandler.passedAudition = gotRole;
-        Dialogue.index++;
+        dialogueObject.NextLine(); //this is broken
     }
 }
