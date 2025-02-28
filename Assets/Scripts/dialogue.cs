@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
  
 public class Dialogue : MonoBehaviour {
     public TextMeshProUGUI textComponent;
-    private string[] sentences = {
+    public static string[] sentences;
+
+    private string[] level1dialogue = {
     "Hello there! I’m so glad you’ve decided to join our company. I’m the Director here, and I’m always looking for new talent.", 
     "During your time here, you will pass through three rounds of auditions, each for progressively harder roles. The experience you gather with your starting roles will inform your chances later on.",
     "Who knows? Maybe you can be among the ones who make it to the top!",
@@ -37,7 +39,7 @@ public class Dialogue : MonoBehaviour {
         "Report back here next week for your next audition. Director B will walk you through it. I’ve heard she’s pretty hard on her performers, so… good luck!" };
         
     public float textSpeed;
-    private static int index; 
+    public static int index; 
     private bool dialogueValid;
 
     public Button buttonSing;
@@ -56,11 +58,17 @@ public class Dialogue : MonoBehaviour {
     void Start(){
         DontDestroyOnLoad(gameObject);
         textComponent.text = string.Empty;
-        StartDialogue();
+        
         buttonSing.gameObject.SetActive(false);
         buttonDance.gameObject.SetActive(false);
-        SceneManager dm = gameObject.GetComponent<SceneManager>();
 
+        if (GameHandler.level == 0) {
+            index = 0;
+            sentences = level1dialogue;
+     
+        }
+
+        StartDialogue();
     }
 
     void setSentences(string[] lines) {
@@ -122,14 +130,13 @@ public class Dialogue : MonoBehaviour {
     }
 
     void StartDialogue() {
-        index = 0;
         StartCoroutine(TypeLine());
 
     }
 
     IEnumerator TypeLine() {
     
-        director_anim.Play("anim1");
+        director_anim.Play("new_anim");
         foreach(char c in sentences[index].ToCharArray()) {
             textComponent.text += c;
             yield return new WaitForSeconds(textSpeed);

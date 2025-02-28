@@ -13,6 +13,7 @@ public class GameHandler : MonoBehaviour {
       public TMP_Text singText;
       public TMP_Text danceText;
       private string sceneName;
+      public static int level;
       public static string lastLevelDied;  //allows replaying the Level where you died
 
 
@@ -22,6 +23,7 @@ public class GameHandler : MonoBehaviour {
             if (sceneName=="MainMenu"){ //uncomment these two lines when the MainMenu exists
                 singStat = 0;
                 danceStat = 0;
+                level = 0;
             }
             UpdateStatsDisplay();
       }
@@ -46,6 +48,7 @@ public class GameHandler : MonoBehaviour {
 
       public void ReturnToLevel1() {
             SceneManager.UnloadSceneAsync("RhythmGame");
+            level++;
       }
 
       // Return to MainMenu
