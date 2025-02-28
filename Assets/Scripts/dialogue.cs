@@ -36,17 +36,60 @@ public class Dialogue : MonoBehaviour {
         "Congratulations on passing your first audition! I know it’s only a small role, but I’m sure this will lead to bigger and brighter opportunities.",
         "Some experience in the industry does give you a higher chance of getting bigger roles in the future, after all.",
         "But don’t neglect your singing and dancing skills, either! Some roles require great vocal skills, some dance, some both… regardless, it’s important to give it your best and do well in training!",
-        "Report back here next week for your next audition. Director B will walk you through it. I’ve heard she’s pretty hard on her performers, so… good luck!" };
-        
+        "Report back here next week for your next audition. Director B will walk you through it. I’ve heard she’s pretty hard on her performers, so… good luck!"
+    };
+
+    private string[] level_2_dialogue = {
+        "Welcome back! It’s good to see you again!",
+        "For your second audition, I’ve found some slightly harder roles for you. But don’t worry, I’m confident you can do well!",
+        "Again, I’m going to give you an opportunity to train your vocal or dance skills before we get started again. Which would you like to practice?",
+        "Good luck!",
+        "Your skills are improving by the day! Now, let’s get into our audition. With these bigger roles, you’ll really get a taste of the acting industry!",
+        "Which role would you like to audition for?",
+    };
+
+    private string[] second_audition_passed = {
+        "Amazing job! Your performance really touched me. The role is yours!",
+        "Wow, you’re really moving up in the industry. More and more people have been asking about you.",
+        "Report back next month for your last audition. I might just have your breakout role on hand!",
+    };
+
+    private string[] second_audition_failure = {
+        "You brought passion to your performance as always. Unfortunately, we’ve decided to go with someone else…",
+        "Don’t worry! Keep working on your singing and dancing skills, and with a little luck, you’ll get another opportunity soon!",
+        "Report back next month for your last audition. I might just have your breakout role on hand!",
+    };
+
+    private string[] level_3_dialogue = {
+        "Welcome back to the studio! Are you ready for your final audition?",
+        "I have to say, I’ve got three really special roles for you today, so you’d better put on your best performance!",
+        "Can’t improve without practicing, though. I know you’ve been working hard on your skills, so show me what you’ve got!",
+        "Good luck!",
+        "Alright, it’s time to move on to your final audition. You’ve been with this studio for a while, and I think you’ve proven yourself worthy of trying out for one of these roles.",
+        "Relax, take a deep breath, and think of everything you’ve made it through so far. You’ve got this!",
+        "Which role would you like to audition for?"
+    };
+
+    private string[] third_audition_succeed = {
+        "Wow… that was amazing! You’ve really come a long way. The role is yours!",
+        "To see someone under my company make it so far…soon your face will be appearing all over the city!",
+        "This isn’t the end, though. If you want to do good in this role, you’ll have to keep working hard.",
+        "I look forward to seeing what you’ll accomplish!",
+    };
+
+    string[] third_audition_failure = {
+        "I can definitely see improvement in your technique! Unfortunately, there were a lot of contenders for this role, and we’ve decided to go with someone else…",
+        "Don’t be discouraged! For a role this big, it’s normal not to make it on your first try.",
+        "No matter what, you’ve made your first steps into the acting industry, and that’s something to celebrate!",
+        "I can’t wait to see what you’ll accomplish in the future!",
+    };
+    
     public float textSpeed;
     public static int index; 
-    private bool dialogueValid;
 
     public Button buttonSing;
     public Button buttonDance;
 
-    public GameObject canvas;
-    public GameObject dialogueEventSystem;
     public cardSpawner cs;
 
     public GameObject director;
@@ -65,7 +108,6 @@ public class Dialogue : MonoBehaviour {
         if (GameHandler.level == 0) {
             index = 0;
             sentences = level1dialogue;
-     
         }
 
         StartDialogue();
@@ -83,12 +125,6 @@ public class Dialogue : MonoBehaviour {
 
         else if (index == 9) {
             cs.spawnCard();
-<<<<<<< Updated upstream
-            // if (CalcRoleSuccessChance.OnCardClicked()) {
-            //     index++;
-            // }
-=======
->>>>>>> Stashed changes
         }
 
         else if (index == 11) {
@@ -113,11 +149,6 @@ public class Dialogue : MonoBehaviour {
             
         //     index = 0;
         // }
-
-        if (UnityEngine.SceneManagement.SceneManager.sceneCount <= 1) {
-            canvas.SetActive(true);
-            dialogueEventSystem.SetActive(true);
-        }
 
         if (textComponent.text == sentences[index]) {
             director_anim.Play("Rest");
@@ -156,8 +187,8 @@ public class Dialogue : MonoBehaviour {
         }
     }
 
-    void NextLine() {
-        if (index < sentences.Length - 1 ) {
+    public void NextLine() {
+        if (index < sentences.Length - 1) {
             index++;
             textComponent.text = string.Empty;
             StartCoroutine(TypeLine());
@@ -172,9 +203,6 @@ public class Dialogue : MonoBehaviour {
         index = 6;
         buttonSing.gameObject.SetActive(false);
         buttonDance.gameObject.SetActive(false);
-
-        canvas.SetActive(false);
-        dialogueEventSystem.SetActive(false);
     }
 
     public void incrementIndex() {
