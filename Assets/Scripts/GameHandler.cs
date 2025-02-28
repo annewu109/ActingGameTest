@@ -15,6 +15,7 @@ public class GameHandler : MonoBehaviour {
       private string sceneName;
       public static int level;
       public static string lastLevelDied;  //allows replaying the Level where you died
+      public static bool passedAudition;
 
 
       void Start(){

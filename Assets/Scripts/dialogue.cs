@@ -19,8 +19,8 @@ public class Dialogue : MonoBehaviour {
     "Now that you have some experience, let’s move onto your first round of auditions. I have three roles that you may be suited for.",
     "Remember, your vocal and dance skills will factor into your probability of cinching the role!",
     "Which role would you like to audition for?",
-    ""
-    // , "Good choice! Let me get everything set up for your audition..."
+    "    ",
+    "Good choice! Let me get everything set up for your audition..."
     };
 
     private string[] first_audition_fail = {
@@ -83,22 +83,36 @@ public class Dialogue : MonoBehaviour {
 
         else if (index == 9) {
             cs.spawnCard();
+<<<<<<< Updated upstream
             // if (CalcRoleSuccessChance.OnCardClicked()) {
             //     index++;
             // }
+=======
+>>>>>>> Stashed changes
         }
 
         else if (index == 11) {
-            
-            if (audition_passed) {
+            if (GameHandler.passedAudition) {
                 sentences = first_audition_succeed;
             }
             else {
                 sentences = first_audition_fail;
             }
-            
+
             index = 0;
         }
+
+        // else if (index == 11) {
+            
+        //     if (audition_passed) {
+        //         sentences = first_audition_succeed;
+        //     }
+        //     else {
+        //         sentences = first_audition_fail;
+        //     }
+            
+        //     index = 0;
+        // }
 
         if (UnityEngine.SceneManagement.SceneManager.sceneCount <= 1) {
             canvas.SetActive(true);
@@ -109,7 +123,7 @@ public class Dialogue : MonoBehaviour {
             director_anim.Play("Rest");
         }
 
-        if (index != 5) {
+        if (/*index != 5 ||*/ index != 9 || index != 10) {
             if (Input.GetKeyDown(KeyCode.Space)) {
                 if (textComponent.text == sentences[index]) {
                         NextLine();

@@ -16,7 +16,6 @@ public class CalcRoleSuccessChance : MonoBehaviour
     public TextMeshProUGUI showPtDisplay;
     public TextMeshProUGUI roleNameDisplay;
     public TextMeshProUGUI probabilityText;
-    public TextMeshProUGUI gotRoleText;
     public GameObject roleSprite;
     
     private int rngNum;
@@ -49,15 +48,13 @@ public class CalcRoleSuccessChance : MonoBehaviour
         
     }
 
-    public bool OnCardClicked() {
+    public void OnCardClicked() {
         bool gotRole;
         Debug.Log("rngNum: " + rngNum + ", percentageChance: " + percentageChance);
         if (rngNum <= percentageChance) {
-            gotRoleText.text = "You got the role!";
             gotRole = true;
         }
         else {
-            gotRoleText.text = "You didn't get the role!";
             gotRole = false;
         }
 
@@ -67,6 +64,7 @@ public class CalcRoleSuccessChance : MonoBehaviour
             Destroy(card);
         }
 
-        return gotRole;
+        GameHandler.passedAudition = gotRole;
+        Dialogue.index++;
     }
 }

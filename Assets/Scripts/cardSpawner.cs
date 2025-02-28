@@ -23,12 +23,15 @@ public class cardSpawner : MonoBehaviour
     public void spawnCard() {
         for (int i = 0; i < spawnPoints.Length; i++)
         {
-            int cardToChoose = Random.Range(0, roleCards.Count - 1);
+            Debug.Log("loop num " + i);
+            int cardToChoose = Random.Range(0, roleCards.Count);
             Debug.Log(cardToChoose);
             GameObject cardToSpawn = roleCards[cardToChoose];
             roleCards.Remove(cardToSpawn);
             Instantiate(cardToSpawn, spawnPoints[i].position, Quaternion.identity, canvas);
         }
+
+        Dialogue.index++;
     }
 
 }
