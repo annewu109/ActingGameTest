@@ -83,10 +83,9 @@ public class Dialogue : MonoBehaviour {
 
         else if (index == 9) {
             cs.spawnCard();
-            index++;
-            // if (CalcRoleSuccessChance.OnCardClicked()) {
-
-            // }
+            if (CalcRoleSuccessChance.OnCardClicked()) {
+                index++;
+            }
         }
 
         else if (index == 11) {
