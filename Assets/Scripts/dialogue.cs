@@ -83,9 +83,9 @@ public class Dialogue : MonoBehaviour {
 
         else if (index == 9) {
             cs.spawnCard();
-            if (CalcRoleSuccessChance.OnCardClicked()) {
-                index++;
-            }
+            // if (CalcRoleSuccessChance.OnCardClicked()) {
+            //     index++;
+            // }
         }
 
         else if (index == 11) {
@@ -161,6 +161,10 @@ public class Dialogue : MonoBehaviour {
 
         canvas.SetActive(false);
         dialogueEventSystem.SetActive(false);
+    }
+
+    public void incrementIndex() {
+        index++;
     }
 
 
