@@ -82,11 +82,11 @@ public class GameHandler : MonoBehaviour {
       }
 
       public void GoToSingGame(){
-            SceneManager.LoadScene("RhythmGame", LoadSceneMode.Additive);
+            SceneManager.LoadScene("RhythmGame");
       }
 
       public void GoToDanceGame(){
-            SceneManager.LoadScene("RhythmGame", LoadSceneMode.Additive);
+            SceneManager.LoadScene("RhythmGame");
       }
 
       /*

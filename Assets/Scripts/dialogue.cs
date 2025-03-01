@@ -160,11 +160,14 @@ public class Dialogue : MonoBehaviour {
     public int auditionIndex;
     public int endIndex;
 
+    public static Dialogue instance;
+
 
 
     void Start(){
         DontDestroyOnLoad(gameObject);
         textComponent.text = string.Empty;
+        instance = this;
         
         buttonSing.gameObject.SetActive(false);
         buttonDance.gameObject.SetActive(false);
@@ -177,7 +180,7 @@ public class Dialogue : MonoBehaviour {
 
             rhythmGameIndex = 5;
             auditionIndex = 9;
-            endIndex = 4;
+            endIndex = 4; //why does it end at index 4?
         }
 
         StartDialogue();
@@ -231,7 +234,7 @@ public class Dialogue : MonoBehaviour {
             index = 0;
         }
 
-        else if (index == endIndex) {
+        else if ((sentences == passedBranch || sentences == failedBranch) && (index == endIndex)) {
             index = 0;
             myGH.StartGame();
             reset_branch();

@@ -11,8 +11,8 @@ public class cardSpawner : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start(){
+        spawnCard();
     }
 
     // Update is called once per frame
