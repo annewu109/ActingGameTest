@@ -11,6 +11,11 @@ public class Dialogue : MonoBehaviour {
     public static string[] failedBranch;
     public GameHandler myGH;
 
+    public GameObject canvas;
+    public GameObject myEventSystem;
+
+    public GameObject textBox;
+
     private string[] level1dialogue = {
     "Hello there! I’m so glad you’ve decided to join our company. I’m the Director here, and I’m always looking for new talent.", 
     "During your time here, you will pass through three rounds of auditions, each for progressively harder roles. The experience you gather with your starting roles will inform your chances later on.",
@@ -21,9 +26,10 @@ public class Dialogue : MonoBehaviour {
     "Looks like you’re getting the hang of it!",
     "Now that you have some experience, let’s move onto your first round of auditions. I have three roles that you may be suited for.",
     "Remember, your vocal and dance skills will factor into your probability of cinching the role!",
-    "Which role would you like to audition for?",
-    "    ",
-    "Good choice! Let me get everything set up for your audition..."
+    "Which role would you like to audition for?", //bug on this line...
+    "","",
+    "Good choice! Let me get everything set up for your audition...",
+    "" //?
     };
 
     private string[] first_audition_fail = {
@@ -31,7 +37,7 @@ public class Dialogue : MonoBehaviour {
         "Unfortunately, we’ve decided to go with someone else for this role…",
         "But don’t worry! Although experience certainly helps with casting, you’ll still have plenty of opportunities with your next two auditions, so don’t be discouraged.",
         "don’t neglect your singing and dancing skills, either! Some roles require great vocal skills, some dance, some both… regardless, it’s important to give it your best and do well in training!",
-        "Report back here next week for your next audition. Director B will walk you through it. I’ve heard she’s pretty hard on her performers, so… good luck!",
+        "Report back here next week for your next audition."
     };
 
     private string[] first_audition_succeed = {
@@ -39,7 +45,7 @@ public class Dialogue : MonoBehaviour {
         "Congratulations on passing your first audition! I know it’s only a small role, but I’m sure this will lead to bigger and brighter opportunities.",
         "Some experience in the industry does give you a higher chance of getting bigger roles in the future, after all.",
         "But don’t neglect your singing and dancing skills, either! Some roles require great vocal skills, some dance, some both… regardless, it’s important to give it your best and do well in training!",
-        "Report back here next week for your next audition. Director B will walk you through it. I’ve heard she’s pretty hard on her performers, so… good luck!",
+        "Report back here next week for your next audition."
     };
 
     private string[] level_2_dialogue = {
@@ -50,13 +56,14 @@ public class Dialogue : MonoBehaviour {
         "Your skills are improving by the day! Now, let’s get into our audition. With these bigger roles, you’ll really get a taste of the acting industry!",
         "Which role would you like to audition for?",
         "    ",
-        "Good choice! Let me get everything set up for your audition..."
+        "Good choice! Let me get everything set up for your audition...",
+        "",
     };
 
     private string[] second_audition_passed = {
         "Amazing job! Your performance really touched me. The role is yours!",
         "Wow, you’re really moving up in the industry. More and more people have been asking about you.",
-        "Report back next month for your last audition. I might just have your breakout role on hand!",
+        "Report back next month for your last audition. I might just have your breakout role on hand!"
     };
 
     private string[] second_audition_failure = {
@@ -161,7 +168,8 @@ public class Dialogue : MonoBehaviour {
     public int endIndex;
 
     public static Dialogue instance;
-
+    
+    public static int testLevel = 0;
 
 
     void Start(){
@@ -179,14 +187,22 @@ public class Dialogue : MonoBehaviour {
             failedBranch = first_audition_fail;
 
             rhythmGameIndex = 5;
-            auditionIndex = 9;
+            auditionIndex = 10;
             endIndex = 4; //why does it end at index 4?
+            // end index is when the pass/fail branch ends, not the main one
         }
+        else {
+            print("hi");
+            canvas.gameObject.SetActive(true);
+            myEventSystem.gameObject.SetActive(true);
+        }
+
 
         StartDialogue();
     }
 
     void reset_branch() {
+
         if (GameHandler.level == 1) {
             index = 0;
             sentences = level_2_dialogue;
@@ -209,21 +225,36 @@ public class Dialogue : MonoBehaviour {
         }
         else if (GameHandler.level == 3) {
             print("GAME OVER");
+            myGH.MainMenu();
         }
         
     }
 
     void Update(){
+
+        // terrible and may slow down the program. consider going back to normal sceneloading
+        if (myGH.getSceneCount() == 1) {
+            myEventSystem.gameObject.SetActive(true);
+            canvas.gameObject.SetActive(true);
+        } 
+
         if (index == rhythmGameIndex) {
             buttonSing.gameObject.SetActive(true);
             buttonDance.gameObject.SetActive(true);
         }
 
         else if (index == auditionIndex) {
+            // StopAllCoroutines();
+            // textComponent.text = sentences[index]; 
+
+            textBox.gameObject.SetActive(false);
             cs.spawnCard();
         }
 
         else if (index == auditionIndex+2) {
+            textBox.gameObject.SetActive(true);
+            NextLine();
+
             if (GameHandler.passedAudition) {
                 sentences = passedBranch;
             }
@@ -231,21 +262,25 @@ public class Dialogue : MonoBehaviour {
                 sentences = failedBranch;
             }
 
-            index = 0;
+            index = 0; 
         }
 
         else if ((sentences == passedBranch || sentences == failedBranch) && (index == endIndex)) {
             index = 0;
-            myGH.StartGame();
+            // myGH.StartGame();
             reset_branch();
             
         }
 
-        if (textComponent.text == sentences[index]) {
+    if (canvas.activeSelf) {
+        if (!textBox.activeSelf || textComponent.text == sentences[index]) {
             director_anim.Play("Rest");
         }
+    }
+        
 
-        if (!/*index != 5 ||*/ (index == 9 || index == 10)) {
+
+        if (!(index == rhythmGameIndex || index == auditionIndex || index == auditionIndex+1)) {
             if (Input.GetKeyDown(KeyCode.Space)) {
                 if (textComponent.text == sentences[index]) {
                         NextLine();
@@ -271,7 +306,6 @@ public class Dialogue : MonoBehaviour {
     }
 
     IEnumerator TypeLine() {
-    
         director_anim.Play("new_anim");
         foreach(char c in sentences[index].ToCharArray()) {
             textComponent.text += c;
@@ -280,6 +314,7 @@ public class Dialogue : MonoBehaviour {
     }
 
     public void NextLine() {
+        print("index:" + index);
         if (index < sentences.Length - 1) {
             index++;
             textComponent.text = string.Empty;
@@ -287,19 +322,28 @@ public class Dialogue : MonoBehaviour {
 
         }
         else {
+            print("entered the mystery else");
             gameObject.SetActive(false);
+
         }
     }
 
     public void hideButtons() {
-        index = 6;
+        NextLine();
         buttonSing.gameObject.SetActive(false);
         buttonDance.gameObject.SetActive(false);
+        canvas.gameObject.SetActive(false);
+        myEventSystem.gameObject.SetActive(false);
     }
+
+    // public void showCanvas() {
+    //     canvas.gameObject.SetActive(true);
+    //     myEventSystem.gameObject.SetActive(true);
+    // }
 
     public void incrementIndex() {
         index++;
-    }
+    } //is this used for anything
 
 
 }

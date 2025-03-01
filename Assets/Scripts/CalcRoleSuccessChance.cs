@@ -70,6 +70,7 @@ public class CalcRoleSuccessChance : MonoBehaviour
         }
 
         GameHandler.passedAudition = gotRole;
-        dialogue.NextLine(); //this is broken
+        // dialogue.NextLine(); //this is broken
+        dialogue.incrementIndex();
     }
 }

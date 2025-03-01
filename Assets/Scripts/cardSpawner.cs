@@ -12,7 +12,7 @@ public class cardSpawner : MonoBehaviour
 
     // Start is called before the first frame update
     void Start(){
-        spawnCard();
+        // spawnCard();
     }
 
     // Update is called once per frame
@@ -22,17 +22,23 @@ public class cardSpawner : MonoBehaviour
     }
 
     public void spawnCard() {
-        for (int i = 0; i < spawnPoints.Length; i++)
-        {
+        // for (int i = 0; i < spawnPoints.Length; i++)
+
+        for (int i = 0; i < 3; i++) {
             Debug.Log("loop num " + i);
             int cardToChoose = Random.Range(0, roleCards.Count);
             Debug.Log(cardToChoose);
             GameObject cardToSpawn = roleCards[cardToChoose];
             roleCards.Remove(cardToSpawn);
             Instantiate(cardToSpawn, spawnPoints[i].position, Quaternion.identity, canvas);
+            
+            if (i == 2) {
+                dialogue.incrementIndex();
+                print("spawned 3 things");
+            }
         }
 
-        dialogue.NextLine();
+        
     }
 
 }

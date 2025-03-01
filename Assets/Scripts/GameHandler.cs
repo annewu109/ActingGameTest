@@ -27,6 +27,8 @@ public class GameHandler : MonoBehaviour {
                 level = 0;
             }
             UpdateStatsDisplay();
+            print("GameHandelr restart");
+            print ("level at GH restart: " + level);
       }
 
       public void addSing(int points){
@@ -48,8 +50,10 @@ public class GameHandler : MonoBehaviour {
       }
 
       public void ReturnToLevel1() {
-            SceneManager.UnloadSceneAsync("RhythmGame");
             level++;
+            // print("level: " + level);
+            SceneManager.UnloadSceneAsync("RhythmGame");
+            // SceneManager.LoadScene("Level1");
       }
 
       // Return to MainMenu
@@ -82,13 +86,16 @@ public class GameHandler : MonoBehaviour {
       }
 
       public void GoToSingGame(){
-            SceneManager.LoadScene("RhythmGame");
+            SceneManager.LoadScene("RhythmGame", LoadSceneMode.Additive);
       }
 
       public void GoToDanceGame(){
-            SceneManager.LoadScene("RhythmGame");
+            SceneManager.LoadScene("RhythmGame", LoadSceneMode.Additive);
       }
-
+      
+      public int getSceneCount() {
+            return SceneManager.sceneCount;
+      }
       /*
 
       public void playerDies(){
