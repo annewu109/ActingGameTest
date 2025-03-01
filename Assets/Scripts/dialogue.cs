@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 public class Dialogue : MonoBehaviour {
     public TextMeshProUGUI textComponent;
     public static string[] sentences;
+    public static string[] passedBranch;
+    public static string[] failedBranch;
+    public GameHandler myGH;
 
     private string[] level1dialogue = {
     "Hello there! I’m so glad you’ve decided to join our company. I’m the Director here, and I’m always looking for new talent.", 
@@ -28,7 +31,7 @@ public class Dialogue : MonoBehaviour {
         "Unfortunately, we’ve decided to go with someone else for this role…",
         "But don’t worry! Although experience certainly helps with casting, you’ll still have plenty of opportunities with your next two auditions, so don’t be discouraged.",
         "don’t neglect your singing and dancing skills, either! Some roles require great vocal skills, some dance, some both… regardless, it’s important to give it your best and do well in training!",
-        "Report back here next week for your next audition. Director B will walk you through it. I’ve heard she’s pretty hard on her performers, so… good luck!"
+        "Report back here next week for your next audition. Director B will walk you through it. I’ve heard she’s pretty hard on her performers, so… good luck!",
     };
 
     private string[] first_audition_succeed = {
@@ -36,7 +39,7 @@ public class Dialogue : MonoBehaviour {
         "Congratulations on passing your first audition! I know it’s only a small role, but I’m sure this will lead to bigger and brighter opportunities.",
         "Some experience in the industry does give you a higher chance of getting bigger roles in the future, after all.",
         "But don’t neglect your singing and dancing skills, either! Some roles require great vocal skills, some dance, some both… regardless, it’s important to give it your best and do well in training!",
-        "Report back here next week for your next audition. Director B will walk you through it. I’ve heard she’s pretty hard on her performers, so… good luck!"
+        "Report back here next week for your next audition. Director B will walk you through it. I’ve heard she’s pretty hard on her performers, so… good luck!",
     };
 
     private string[] level_2_dialogue = {
@@ -46,6 +49,8 @@ public class Dialogue : MonoBehaviour {
         "Good luck!",
         "Your skills are improving by the day! Now, let’s get into our audition. With these bigger roles, you’ll really get a taste of the acting industry!",
         "Which role would you like to audition for?",
+        "    ",
+        "Good choice! Let me get everything set up for your audition..."
     };
 
     private string[] second_audition_passed = {
@@ -67,7 +72,9 @@ public class Dialogue : MonoBehaviour {
         "Good luck!",
         "Alright, it’s time to move on to your final audition. You’ve been with this studio for a while, and I think you’ve proven yourself worthy of trying out for one of these roles.",
         "Relax, take a deep breath, and think of everything you’ve made it through so far. You’ve got this!",
-        "Which role would you like to audition for?"
+        "Which role would you like to audition for?",
+        "    ",
+        "Good choice! Let me get everything set up for your audition..."
     };
 
     private string[] third_audition_succeed = {
@@ -84,6 +91,60 @@ public class Dialogue : MonoBehaviour {
         "I can’t wait to see what you’ll accomplish in the future!",
     };
     
+    // public struct dialogueBranch {
+    //     public dialogueBranch(string[] d, string[] p, string[]f, int r, int a, int e) {
+    //         dialogue = d;
+    //         passed = p;
+    //         failed = f;
+    //         rhythmGameIndex = r;
+    //         auditionIndex = a;
+    //         endIndex = e;
+
+    //     }
+    //     public string[] dialogue;
+    //     public string[] passed;
+    //     public string[] failed;
+    //     public int rhyhmGameIndex;
+    //     public int auditionIndex;
+    //     public int endIndex;
+    //     //  = 5;
+    //     //     auditionIndex = 9;
+    //     //     endIndex = 4;
+    // };
+
+        // public struct dialogueBranch {
+        //     public string[] dialogue;
+        //     public string[] passed;
+            // public string[] failed;
+            // public int rhyhmGameIndex;
+            // public int auditionIndex;
+            // public int endIndex;
+        //  = 5;
+        //     auditionIndex = 9;
+        //     endIndex = 4;
+    // };
+
+    // dialogueBranch myB = new dialogueBranch(level1dialogue)
+
+    // public dialogueBranch branchOne = new dialogueBranch(level1dialogue,
+    // first_audition_succeed, first_audition_fail, 5, 9, 4);
+    // branchOne.dialogue = level1dialogue;
+    // branchOne.passed = first_audition_succeed;
+    // branchOne.failed = first_audition_fail;
+    // branchOne.rhyhmGameIndex = 5;
+    // branchOne.auditionIndex = 9;
+    // branchOne.endIndex = 4;
+    
+    // public dialogueBranch branchTwo;
+    // branchTwo.dialogue = level_2_dialogue;
+    // branchTwo.passed = first_audition_succeed;
+    // branchTwo.failed = first_audition_fail;
+    // branchTwo.rhyhmGameIndex = 5;
+    // branchTwo.auditionIndex = 9;
+    // branchTwo.endIndex = 4;
+
+    // public dialogueBranch currentBranch = new dialogueBranch();
+
     public float textSpeed;
     public static int index; 
 
@@ -95,7 +156,10 @@ public class Dialogue : MonoBehaviour {
     public GameObject director;
     public Animator director_anim;
 
-    private bool audition_passed = false;
+    public int rhythmGameIndex;
+    public int auditionIndex;
+    public int endIndex;
+
 
 
     void Start(){
@@ -108,53 +172,77 @@ public class Dialogue : MonoBehaviour {
         if (GameHandler.level == 0) {
             index = 0;
             sentences = level1dialogue;
+            passedBranch = first_audition_succeed;
+            failedBranch = first_audition_fail;
+
+            rhythmGameIndex = 5;
+            auditionIndex = 9;
+            endIndex = 4;
         }
 
         StartDialogue();
     }
 
-    void setSentences(string[] lines) {
-        sentences = lines;
+    void reset_branch() {
+        if (GameHandler.level == 1) {
+            index = 0;
+            sentences = level_2_dialogue;
+            passedBranch = second_audition_passed;
+            failedBranch = second_audition_failure;
+
+            rhythmGameIndex = 3;
+            auditionIndex = 5;
+            endIndex = 2;
+        }
+        else if (GameHandler.level == 2) {
+            index = 0;
+            sentences = level_3_dialogue;
+            passedBranch = third_audition_succeed;
+            failedBranch = third_audition_failure;
+
+            rhythmGameIndex = 3;
+            auditionIndex = 6;
+            endIndex = 3;
+        }
+        else if (GameHandler.level == 3) {
+            print("GAME OVER");
+        }
+        
     }
- 
+
     void Update(){
-        if (index == 5) {
+        if (index == rhythmGameIndex) {
             buttonSing.gameObject.SetActive(true);
             buttonDance.gameObject.SetActive(true);
         }
 
-        else if (index == 9) {
+        else if (index == auditionIndex) {
             cs.spawnCard();
         }
 
-        else if (index == 11) {
+        else if (index == auditionIndex+2) {
             if (GameHandler.passedAudition) {
-                sentences = first_audition_succeed;
+                sentences = passedBranch;
             }
             else {
-                sentences = first_audition_fail;
+                sentences = failedBranch;
             }
 
             index = 0;
         }
 
-        // else if (index == 11) {
+        else if (index == endIndex) {
+            index = 0;
+            myGH.StartGame();
+            reset_branch();
             
-        //     if (audition_passed) {
-        //         sentences = first_audition_succeed;
-        //     }
-        //     else {
-        //         sentences = first_audition_fail;
-        //     }
-            
-        //     index = 0;
-        // }
+        }
 
         if (textComponent.text == sentences[index]) {
             director_anim.Play("Rest");
         }
 
-        if (/*index != 5 ||*/ index != 9 || index != 10) {
+        if (!/*index != 5 ||*/ (index == 9 || index == 10)) {
             if (Input.GetKeyDown(KeyCode.Space)) {
                 if (textComponent.text == sentences[index]) {
                         NextLine();
@@ -168,6 +256,7 @@ public class Dialogue : MonoBehaviour {
         }
 
     }
+
 
     public static int getIndex() {
         return index;
@@ -211,3 +300,4 @@ public class Dialogue : MonoBehaviour {
 
 
 }
+
