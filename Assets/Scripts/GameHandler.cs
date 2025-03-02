@@ -52,9 +52,7 @@ public class GameHandler : MonoBehaviour {
 
       public void ReturnToLevel1() {
             level++;
-            // print("level: " + level);
             SceneManager.UnloadSceneAsync("RhythmGame");
-            // SceneManager.LoadScene("Level1");
       }
 
       // Return to MainMenu
@@ -92,6 +90,14 @@ public class GameHandler : MonoBehaviour {
 
       public void GoToDanceGame(){
             SceneManager.LoadScene("RhythmGame", LoadSceneMode.Additive);
+      }
+
+      public void goToAudition() {
+            SceneManager.LoadScene("audition", LoadSceneMode.Additive);
+      }
+
+      public void unloadAudition() {
+            SceneManager.UnloadSceneAsync("audition");
       }
       
       public int getSceneCount() {

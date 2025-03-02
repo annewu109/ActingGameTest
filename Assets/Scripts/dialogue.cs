@@ -12,9 +12,17 @@ public class Dialogue : MonoBehaviour {
     public GameHandler myGH;
 
     public GameObject canvas;
+    public GameObject background;
     public GameObject myEventSystem;
 
     public GameObject textBox;
+    public Image blackScreen;
+    public TextMeshProUGUI fadeText;
+    public static string[] timeText = {
+        "Some time later..."
+    };
+
+    public static bool dialogueValid;
 
     private string[] level1dialogue = {
     "Hello there! I’m so glad you’ve decided to join our company. I’m the Director here, and I’m always looking for new talent.", 
@@ -27,7 +35,7 @@ public class Dialogue : MonoBehaviour {
     "Now that you have some experience, let’s move onto your first round of auditions. I have three roles that you may be suited for.",
     "Remember, your vocal and dance skills will factor into your probability of cinching the role!",
     "Which role would you like to audition for?", //bug on this line...
-    "","",
+    "", 
     "Good choice! Let me get everything set up for your audition...",
     "" //?
     };
@@ -36,7 +44,7 @@ public class Dialogue : MonoBehaviour {
         "Well, thank you for your audition. That was certainly an interesting performance!",
         "Unfortunately, we’ve decided to go with someone else for this role…",
         "But don’t worry! Although experience certainly helps with casting, you’ll still have plenty of opportunities with your next two auditions, so don’t be discouraged.",
-        "don’t neglect your singing and dancing skills, either! Some roles require great vocal skills, some dance, some both… regardless, it’s important to give it your best and do well in training!",
+        "Don’t neglect your singing and dancing skills, either! Some roles require great vocal skills, some dance, some both… regardless, it’s important to give it your best and do well in training!",
         "Report back here next week for your next audition."
     };
 
@@ -55,7 +63,7 @@ public class Dialogue : MonoBehaviour {
         "Good luck!",
         "Your skills are improving by the day! Now, let’s get into our audition. With these bigger roles, you’ll really get a taste of the acting industry!",
         "Which role would you like to audition for?",
-        "    ",
+        "",
         "Good choice! Let me get everything set up for your audition...",
         "",
     };
@@ -81,7 +89,7 @@ public class Dialogue : MonoBehaviour {
         "Relax, take a deep breath, and think of everything you’ve made it through so far. You’ve got this!",
         "Which role would you like to audition for?",
         "    ",
-        "Good choice! Let me get everything set up for your audition..."
+        "Good choice! Let me get everything set up for your audition..." //do i care enough to make this show? maybe not
     };
 
     private string[] third_audition_succeed = {
@@ -98,60 +106,6 @@ public class Dialogue : MonoBehaviour {
         "I can’t wait to see what you’ll accomplish in the future!",
     };
     
-    // public struct dialogueBranch {
-    //     public dialogueBranch(string[] d, string[] p, string[]f, int r, int a, int e) {
-    //         dialogue = d;
-    //         passed = p;
-    //         failed = f;
-    //         rhythmGameIndex = r;
-    //         auditionIndex = a;
-    //         endIndex = e;
-
-    //     }
-    //     public string[] dialogue;
-    //     public string[] passed;
-    //     public string[] failed;
-    //     public int rhyhmGameIndex;
-    //     public int auditionIndex;
-    //     public int endIndex;
-    //     //  = 5;
-    //     //     auditionIndex = 9;
-    //     //     endIndex = 4;
-    // };
-
-        // public struct dialogueBranch {
-        //     public string[] dialogue;
-        //     public string[] passed;
-            // public string[] failed;
-            // public int rhyhmGameIndex;
-            // public int auditionIndex;
-            // public int endIndex;
-        //  = 5;
-        //     auditionIndex = 9;
-        //     endIndex = 4;
-    // };
-
-    // dialogueBranch myB = new dialogueBranch(level1dialogue)
-
-    // public dialogueBranch branchOne = new dialogueBranch(level1dialogue,
-    // first_audition_succeed, first_audition_fail, 5, 9, 4);
-    // branchOne.dialogue = level1dialogue;
-    // branchOne.passed = first_audition_succeed;
-    // branchOne.failed = first_audition_fail;
-    // branchOne.rhyhmGameIndex = 5;
-    // branchOne.auditionIndex = 9;
-    // branchOne.endIndex = 4;
-    
-    // public dialogueBranch branchTwo;
-    // branchTwo.dialogue = level_2_dialogue;
-    // branchTwo.passed = first_audition_succeed;
-    // branchTwo.failed = first_audition_fail;
-    // branchTwo.rhyhmGameIndex = 5;
-    // branchTwo.auditionIndex = 9;
-    // branchTwo.endIndex = 4;
-
-    // public dialogueBranch currentBranch = new dialogueBranch();
-
     public float textSpeed;
     public static int index; 
 
@@ -165,7 +119,6 @@ public class Dialogue : MonoBehaviour {
 
     public int rhythmGameIndex;
     public int auditionIndex;
-    public int endIndex;
 
     public static Dialogue instance;
     
@@ -174,13 +127,15 @@ public class Dialogue : MonoBehaviour {
 
     void Start(){
         DontDestroyOnLoad(gameObject);
+        dialogueValid = true; 
+        
         textComponent.text = string.Empty;
         instance = this;
         
         buttonSing.gameObject.SetActive(false);
         buttonDance.gameObject.SetActive(false);
 
-        if (GameHandler.level == 0) {
+        if (GameHandler.level == 0) { //NTS - maybe destroy this loop? its only starting once right?
             index = 0;
             sentences = level1dialogue;
             passedBranch = first_audition_succeed;
@@ -188,56 +143,64 @@ public class Dialogue : MonoBehaviour {
 
             rhythmGameIndex = 5;
             auditionIndex = 10;
-            endIndex = 4; //why does it end at index 4?
-            // end index is when the pass/fail branch ends, not the main one
         }
         else {
-            print("hi");
             canvas.gameObject.SetActive(true);
             myEventSystem.gameObject.SetActive(true);
         }
 
-
+        blackScreen.canvasRenderer.SetAlpha( 0.0f );
         StartDialogue();
+
     }
 
     void reset_branch() {
+        textComponent.text = string.Empty;
 
-        if (GameHandler.level == 1) {
-            index = 0;
+        if (sentences != passedBranch && sentences != failedBranch) {
+            StartCoroutine(playAudition());
+            if (GameHandler.passedAudition) {
+                sentences = passedBranch;
+            }
+            else {
+                sentences = failedBranch;
+            }
+        }
+    else {
+        StartCoroutine(fadeScreen());
+
+        if (GameHandler.level == 1) { 
             sentences = level_2_dialogue;
             passedBranch = second_audition_passed;
             failedBranch = second_audition_failure;
 
             rhythmGameIndex = 3;
-            auditionIndex = 5;
-            endIndex = 2;
+            auditionIndex = 6;
         }
+
         else if (GameHandler.level == 2) {
-            index = 0;
             sentences = level_3_dialogue;
             passedBranch = third_audition_succeed;
             failedBranch = third_audition_failure;
 
             rhythmGameIndex = 3;
-            auditionIndex = 6;
-            endIndex = 3;
+            auditionIndex = 7;
         }
         else if (GameHandler.level == 3) {
             print("GAME OVER");
-            myGH.MainMenu();
+            myGH.MainMenu(); //this has a bug, but we'll probably make a smoother transition later anyways
         }
-        
+    }
+        index = 0;        
     }
 
     void Update(){
         myGH.UpdateStatsDisplay(); //idk if this updating every frame will slow soemthing down
 
-        // terrible and may slow down the program. consider going back to normal sceneloading
         if (myGH.getSceneCount() == 1) {
             myEventSystem.gameObject.SetActive(true);
             canvas.gameObject.SetActive(true);
-        } 
+        } //MONITOR for if it slows shit down may have to restructure idk
 
         if (index == rhythmGameIndex) {
             buttonSing.gameObject.SetActive(true);
@@ -245,33 +208,16 @@ public class Dialogue : MonoBehaviour {
         }
 
         else if (index == auditionIndex) {
-            // StopAllCoroutines();
-            // textComponent.text = sentences[index]; 
-
             textBox.gameObject.SetActive(false);
             cs.spawnCard();
         }
 
         else if (index == auditionIndex+2) {
             textBox.gameObject.SetActive(true);
+
             NextLine();
-
-            if (GameHandler.passedAudition) {
-                sentences = passedBranch;
-            }
-            else {
-                sentences = failedBranch;
-            }
-
-            index = 0; 
         }
 
-        else if ((sentences == passedBranch || sentences == failedBranch) && (index == endIndex)) {
-            index = 0;
-            // myGH.StartGame();
-            reset_branch();
-            
-        }
 
     if (canvas.activeSelf) {
         if (!textBox.activeSelf || textComponent.text == sentences[index]) {
@@ -280,36 +226,33 @@ public class Dialogue : MonoBehaviour {
     }
         
 
-
-        if (!(index == rhythmGameIndex || index == auditionIndex || index == auditionIndex+1)) {
-            if (Input.GetKeyDown(KeyCode.Space)) {
-                if (textComponent.text == sentences[index]) {
-                        NextLine();
-                }
-                else {
-                    StopAllCoroutines();
-                    textComponent.text = sentences[index]; 
-                }
-            
-                }
+    if (dialogueValid && !(index == rhythmGameIndex || index == auditionIndex || index == auditionIndex+1)) {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            if (textComponent.text == sentences[index]) {
+                    NextLine();
+            }
+            else {
+                StopAllCoroutines();
+                textComponent.text = sentences[index]; 
+            }
         }
+    }
 
     }
 
-
     public static int getIndex() {
-        return index;
+        return index; // does this do anything?
     }
 
     void StartDialogue() {
-        StartCoroutine(TypeLine());
+        StartCoroutine(TypeLine(textComponent, sentences));
 
     }
 
-    IEnumerator TypeLine() {
+    IEnumerator TypeLine(TextMeshProUGUI textCom, string[] lines) {
         director_anim.Play("new_anim");
-        foreach(char c in sentences[index].ToCharArray()) {
-            textComponent.text += c;
+        foreach(char c in lines[index].ToCharArray()) {
+            textCom.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
     }
@@ -319,13 +262,11 @@ public class Dialogue : MonoBehaviour {
         if (index < sentences.Length - 1) {
             index++;
             textComponent.text = string.Empty;
-            StartCoroutine(TypeLine());
+            StartCoroutine(TypeLine(textComponent, sentences));
 
         }
         else {
-            print("entered the mystery else");
-            gameObject.SetActive(false);
-
+            reset_branch();
         }
     }
 
@@ -337,6 +278,47 @@ public class Dialogue : MonoBehaviour {
         myEventSystem.gameObject.SetActive(false);
     }
 
+
+    IEnumerator fadeScreen()
+    {
+        dialogueValid = false;
+        print("fading screen");
+
+        background.gameObject.SetActive(false);
+
+        blackScreen.CrossFadeAlpha(500, 500, false);
+        yield return new WaitForSeconds(2);
+        StartCoroutine(TypeLine(fadeText, timeText));
+
+        yield return new WaitForSeconds(2);
+        fadeText.text = string.Empty;
+        blackScreen.CrossFadeAlpha(0f, 2, false);
+        background.gameObject.SetActive(true);
+        dialogueValid = true;
+        StartDialogue();
+    }
+
+    IEnumerator playAudition()
+    {
+    
+        print("audition should play now");
+        canvas.gameObject.SetActive(false);
+
+        myGH.goToAudition();
+
+        yield return new WaitForSeconds(5);
+    //sometimes this doesnt unload for some reason. no idea why. seems fine rn
+        myGH.unloadAudition();
+
+        canvas.gameObject.SetActive(true);
+        print("audition scene has played");
+        StartDialogue();
+
+        if (GameHandler.level == 3) {
+            rhythmGameIndex = 10;
+        } //temporary
+    }
+
     // public void showCanvas() {
     //     canvas.gameObject.SetActive(true);
     //     myEventSystem.gameObject.SetActive(true);
@@ -344,7 +326,7 @@ public class Dialogue : MonoBehaviour {
 
     public void incrementIndex() {
         index++;
-    } //is this used for anything
+    } 
 
 
 }
