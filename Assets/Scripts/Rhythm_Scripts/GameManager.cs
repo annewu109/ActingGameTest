@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
 
     public AudioSource theMusic;
+    public AudioClip vocalClip;
+    public AudioClip danceClip;
 
     public bool startPlaying;
 
@@ -38,9 +40,17 @@ public class GameManager : MonoBehaviour {
 
     public GameObject resultsScreen;
     public Text percentHitText, normalsText, goodsText, perfectsText, missesText, rankText, finalScoreText;
+
     // Use this for initialization
     void Start () {
         instance = this;
+
+        // Set the correct audio clip based on the chosen mode.
+        if (GameHandler.singOrDance == "sing") {
+            theMusic.clip = vocalClip;
+        } else if (GameHandler.singOrDance == "dance") {
+            theMusic.clip = danceClip;
+        }
 
         scoreText.text = "Score: 0";
         currentMultiplier = 1;
@@ -51,23 +61,18 @@ public class GameManager : MonoBehaviour {
         startScreen.gameObject.SetActive(true);
     }
 
-
     // Update is called once per frame
     void Update () {
-        if(!startPlaying)
-        {
-            if(Input.anyKeyDown)
-            {
+        if (!startPlaying) {
+            if (Input.anyKeyDown) {
                 startScreen.gameObject.SetActive(false);
                 startPlaying = true;
                 theBS.hasStarted = true;
 
                 theMusic.Play();
             }
-        } else 
-        {
-            if(!theMusic.isPlaying && !resultsScreen.activeInHierarchy)
-            {
+        } else {
+            if (!theMusic.isPlaying && !resultsScreen.activeInHierarchy) {
                 resultsScreen.SetActive(true);
 
                 normalsText.text = "" + normalHits;
@@ -82,20 +87,15 @@ public class GameManager : MonoBehaviour {
 
                 string rankVal = "F";
 
-                if(percentHit > 40)
-                {
+                if (percentHit > 40) {
                     rankVal = "D";
-                    if(percentHit > 55)
-                    {
+                    if (percentHit > 55) {
                         rankVal = "C";
-                        if(percentHit > 70)
-                        {
+                        if (percentHit > 70) {
                             rankVal = "B";
-                            if(percentHit > 85)
-                            {
+                            if (percentHit > 85) {
                                 rankVal = "A";
-                                if(percentHit > 95)
-                                {
+                                if (percentHit > 95) {
                                     rankVal = "S";
                                 }
                             }
@@ -110,67 +110,50 @@ public class GameManager : MonoBehaviour {
                 gh.calcStatGain(currentScore, GameHandler.singOrDance);
 
                 continueButton.gameObject.SetActive(true);
-
-
             }
         }
     }
 
-    public void NoteHit() 
-    {
+    public void NoteHit() {
         Debug.Log("Hit On Time");
 
-        if (currentMultiplier - 1 < multiplierThresholds.Length) 
-        {
+        if (currentMultiplier - 1 < multiplierThresholds.Length) {
             multiplierTracker++;
 
-            if(multiplierThresholds[currentMultiplier - 1] <= multiplierTracker) 
-            {
+            if (multiplierThresholds[currentMultiplier - 1] <= multiplierTracker) {
                 multiplierTracker = 0;
                 currentMultiplier++;
             }
         }
 
         multiText.text = "Multiplier: x" + currentMultiplier;
-
-        // currentScore += scorePerNote * currentMultiplier;
         scoreText.text = "Score: " + currentScore;
     }
 
-    public void NormalHit() 
-    {
+    public void NormalHit() {
         currentScore += scorePerNote * currentMultiplier;
         NoteHit();
-
         normalHits++;
     }
 
-    public void GoodHit() 
-    {
+    public void GoodHit() {
         currentScore += scorePerGoodNote * currentMultiplier;
         NoteHit();
-
         goodHits++;
     }
 
-    public void PerfectHit() 
-    {
+    public void PerfectHit() {
         currentScore += scorePerPerfectNote * currentMultiplier;
         NoteHit();
-
         perfectHits++;
     }
 
-    public void NoteMissed()
-    {
+    public void NoteMissed() {
         Debug.Log("Missed Note");
 
         currentMultiplier = 1;
         multiplierTracker = 0;
-
         multiText.text = "Multiplier: x" + currentMultiplier;
-
         missedHits++;
     }
-
 }
