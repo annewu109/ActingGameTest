@@ -1455,7 +1455,7 @@ PrefabInstance:
       objectReference: {fileID: 1511047840}
     - target: {fileID: 9090986085323583546, guid: e50948663c8e5414ba2f4dbd7fe2630f, type: 3}
       propertyPath: roleCards.Array.size
-      value: 7
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9090986085323583546, guid: e50948663c8e5414ba2f4dbd7fe2630f, type: 3}
       propertyPath: roleCards.Array.data[0]
@@ -1485,6 +1485,14 @@ PrefabInstance:
       propertyPath: roleCards.Array.data[6]
       value: 
       objectReference: {fileID: 5131499765840199133, guid: cc826dd8c0e5847648155b4ea7183235, type: 3}
+    - target: {fileID: 9090986085323583546, guid: e50948663c8e5414ba2f4dbd7fe2630f, type: 3}
+      propertyPath: roleCards.Array.data[7]
+      value: 
+      objectReference: {fileID: 86040719371487391, guid: ad0ba4c32e5ba4642810293fd172af5a, type: 3}
+    - target: {fileID: 9090986085323583546, guid: e50948663c8e5414ba2f4dbd7fe2630f, type: 3}
+      propertyPath: roleCards.Array.data[8]
+      value: 
+      objectReference: {fileID: 6203020418685744534, guid: 467970c1681154bf986a0fd17192be54, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
