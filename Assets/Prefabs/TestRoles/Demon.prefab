@@ -1145,21 +1145,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 454f81cc4a35244b08e56eb973b210b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSingStat: 2
-  playerDanceStat: 3
   roleSingStat: 1
   roleDanceStat: 4
   showPoints: 10
-  mySprite: {fileID: 21300000, guid: b243fe65d6b3440aa9a36b7c1ba01b7e, type: 3}
+  mySprite: {fileID: 21300000, guid: 6374ac4e245322346af0b55fa11488b8, type: 3}
   roleName: Demon
   danceStatDisplay: {fileID: 1886227435055751344}
   singStatDisplay: {fileID: 1475647417973192094}
   showPtDisplay: {fileID: 5937265173687598475}
   roleNameDisplay: {fileID: 6993909590355065302}
   probabilityText: {fileID: 5808534521577670960}
-  gotRoleText: {fileID: 0}
+  dialogue: {fileID: 0}
   roleSprite: {fileID: 4518286298975493485}
-  gotRole: 0
 --- !u!114 &143573736597634532
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -545,21 +545,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 454f81cc4a35244b08e56eb973b210b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSingStat: 2
-  playerDanceStat: 3
-  roleSingStat: 4
-  roleDanceStat: 2
-  showPoints: 25
-  mySprite: {fileID: 21300000, guid: 4523f3b02b024480381d3d181201a661, type: 3}
+  roleSingStat: 6
+  roleDanceStat: 3
+  showPoints: 40
+  mySprite: {fileID: 21300000, guid: 84405e7023d5d794db7c0ec739d9a7b7, type: 3}
   roleName: Mermaid
   danceStatDisplay: {fileID: 3582868275601366468}
   singStatDisplay: {fileID: 1035365230315874485}
   showPtDisplay: {fileID: 8213669785829005357}
   roleNameDisplay: {fileID: 4482820596461713511}
   probabilityText: {fileID: 8302628197265946518}
-  gotRoleText: {fileID: 0}
+  dialogue: {fileID: 0}
   roleSprite: {fileID: 3463844666584034873}
-  gotRole: 0
 --- !u!114 &-1575584227798756836
 MonoBehaviour:
   m_ObjectHideFlags: 0
