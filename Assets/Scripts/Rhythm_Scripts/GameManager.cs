@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour {
 
                 finalScoreText.text = currentScore.ToString();
 
-                gh.calcStatGain(currentScore, "sing");
+                gh.calcStatGain(currentScore, GameHandler.singOrDance);
 
                 continueButton.gameObject.SetActive(true);
 

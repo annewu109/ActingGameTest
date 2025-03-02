@@ -1054,11 +1054,11 @@ PrefabInstance:
     - target: {fileID: 4090827111210618683, guid: fe1072dd8f0b04f4bb6546a1ab4bb078, type: 3}
       propertyPath: singText
       value: 
-      objectReference: {fileID: 423283160}
+      objectReference: {fileID: 423283161}
     - target: {fileID: 4090827111210618683, guid: fe1072dd8f0b04f4bb6546a1ab4bb078, type: 3}
       propertyPath: danceText
       value: 
-      objectReference: {fileID: 423283160}
+      objectReference: {fileID: 423283161}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

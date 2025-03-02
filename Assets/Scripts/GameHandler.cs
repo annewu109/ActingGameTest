@@ -16,6 +16,7 @@ public class GameHandler : MonoBehaviour {
       public static int level;
       public static string lastLevelDied;  //allows replaying the Level where you died
       public static bool passedAudition;
+      public static string singOrDance;
 
 
       void Start(){
@@ -118,6 +119,14 @@ public class GameHandler : MonoBehaviour {
             else if (singOrDance == "dance") {
                   addDance(statGain);
             }
+      }
+
+      public void clickedDance() {
+            singOrDance = "dance";
+      }
+
+      public void clickedSing() {
+            singOrDance = "sing";
       }
       /*
 
