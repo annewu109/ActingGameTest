@@ -96,6 +96,29 @@ public class GameHandler : MonoBehaviour {
       public int getSceneCount() {
             return SceneManager.sceneCount;
       }
+
+      public void calcStatGain(int points, string singOrDance) {
+            int statGain = 0;
+            if (points >= 10000) {
+                  statGain = 4;
+            }
+            else if (points >= 8000) {
+                  statGain = 3;
+            }
+            else if (points >= 6000) {
+                  statGain = 2;
+            }
+            else if (points >= 4000) {
+                  statGain = 1;
+            }
+
+            if (singOrDance == "sing") {
+                  addSing(statGain);
+            }
+            else if (singOrDance == "dance") {
+                  addDance(statGain);
+            }
+      }
       /*
 
       public void playerDies(){

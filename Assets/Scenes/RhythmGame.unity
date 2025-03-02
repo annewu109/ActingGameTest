@@ -3805,6 +3805,7 @@ MonoBehaviour:
   theMusic: {fileID: 521914833}
   startPlaying: 0
   theBS: {fileID: 2064478186}
+  gh: {fileID: 482236439}
   currentScore: 0
   scorePerNote: 100
   scorePerGoodNote: 125

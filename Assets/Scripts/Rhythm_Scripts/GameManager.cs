@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
 
+    public GameHandler gh;
+
     public int currentScore;
     public int scorePerNote = 100;
     public int scorePerGoodNote = 125;
@@ -104,6 +106,8 @@ public class GameManager : MonoBehaviour {
                 rankText.text = rankVal;
 
                 finalScoreText.text = currentScore.ToString();
+
+                gh.calcStatGain(currentScore, "sing");
 
                 continueButton.gameObject.SetActive(true);
 
