@@ -231,6 +231,7 @@ public class Dialogue : MonoBehaviour {
     }
 
     void Update(){
+        myGH.UpdateStatsDisplay(); //idk if this updating every frame will slow soemthing down
 
         // terrible and may slow down the program. consider going back to normal sceneloading
         if (myGH.getSceneCount() == 1) {
