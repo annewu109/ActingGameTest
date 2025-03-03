@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
     public AudioClip vocalClip;
     public AudioClip danceClip;
 
-    public bool startPlaying;
+    public bool startPlaying = false;
 
     public BeatScroller theBS;
 
@@ -40,11 +40,12 @@ public class GameManager : MonoBehaviour {
 
     public GameObject resultsScreen;
     public Text percentHitText, normalsText, goodsText, perfectsText, missesText, rankText, finalScoreText;
+    public static bool gameOver;
 
     // Use this for initialization
     void Start () {
         instance = this;
-
+        // theMusic = GetComponent<AudioSource>(); <=?should this be uncommented? forgot
         // Set the correct audio clip based on the chosen mode.
         if (GameHandler.singOrDance == "sing") {
             theMusic.clip = vocalClip;
@@ -52,11 +53,14 @@ public class GameManager : MonoBehaviour {
             theMusic.clip = danceClip;
         }
 
+        gameOver = false;
+
+
         scoreText.text = "Score: 0";
         currentMultiplier = 1;
 
-        totalNotes = FindObjectsOfType<NoteObject>().Length;
-        
+        // totalNotes = FindObjectsOfType<NoteObject>().Length;
+
         continueButton.gameObject.SetActive(false);
         startScreen.gameObject.SetActive(true);
     }
@@ -75,10 +79,13 @@ public class GameManager : MonoBehaviour {
             if (!theMusic.isPlaying && !resultsScreen.activeInHierarchy) {
                 resultsScreen.SetActive(true);
 
+
                 normalsText.text = "" + normalHits;
                 goodsText.text = goodHits.ToString();
                 perfectsText.text = perfectHits.ToString();
                 missesText.text = "" + missedHits;
+
+                totalNotes = spawnArrows.numSpawned;
 
                 float totalHit = normalHits + goodHits + perfectHits;
                 float percentHit = (totalHit / totalNotes) * 100f;
@@ -108,7 +115,7 @@ public class GameManager : MonoBehaviour {
                 finalScoreText.text = currentScore.ToString();
 
                 gh.calcStatGain(currentScore, GameHandler.singOrDance);
-
+                gameOver = true;
                 continueButton.gameObject.SetActive(true);
             }
         }

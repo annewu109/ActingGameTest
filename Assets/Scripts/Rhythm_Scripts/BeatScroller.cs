@@ -5,7 +5,7 @@ using UnityEngine;
 public class BeatScroller : MonoBehaviour {
 
     public float beatTempo;
-
+    public Transform buttonPos;
     public bool hasStarted;
 
     // Use this for initialization
@@ -27,5 +27,12 @@ public class BeatScroller : MonoBehaviour {
         {
             transform.position -= new Vector3(0f, beatTempo * Time.deltaTime, 0f);
         }
+
+        if (GameManager.gameOver) {
+            Destroy(gameObject);
+        }
+
+
+
     }
 }

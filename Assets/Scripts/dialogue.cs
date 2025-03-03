@@ -126,7 +126,7 @@ public class Dialogue : MonoBehaviour {
 
 
     void Start(){
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
         dialogueValid = true; 
         
         textComponent.text = string.Empty;

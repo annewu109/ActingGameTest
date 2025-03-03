@@ -1,0 +1,112 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class spawnArrows : MonoBehaviour
+{
+    public Transform testHost;
+    public static int numSpawned;
+
+    public GameObject leftArrow;
+    public GameObject rightArrow;
+    public GameObject upArrow;
+    public GameObject downArrow;
+    public float tempo; //<= 60/bpm
+
+    public Transform spawnPointLeft;
+    public Transform spawnPointRight;
+    public Transform spawnPointUp;
+    public Transform spawnPointDown;
+    int[] arrowPositions;
+    int[] singLevelOne = {1, 2, 1, 1, 2, 2, 1, 2, 1, 1, 1, 0, 2, 1, 2, 1, 2, 1, 1, 1, 2, 1, 3};
+    int[] danceLevelOne = {1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 2, 1, 1, 1, 2, 3};
+    public int index;
+
+    public BeatScroller myBS;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        numSpawned = 0;
+        index = 0;
+        // if (GameHandler.Level == 0) { <= bring this back once more music clips r made
+        tempo = 0.56f;
+        if (GameHandler.singOrDance == "sing") {
+            arrowPositions = singLevelOne;
+        }
+        else if (GameHandler.singOrDance == "dance") {
+            arrowPositions = danceLevelOne;
+        }
+        // }
+
+        
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (myBS.hasStarted && index == 0) {
+            InvokeRepeating("ArrowSpawnerController", 0f, tempo);
+        }
+        else if (index == arrowPositions.Length - 1) {
+            CancelInvoke();
+        }
+    }
+
+
+    public void ArrowSpawnerController() {
+        if (index < arrowPositions.Length) {
+            int i = arrowPositions[index];
+            print("num arrows to spawn: " + i);
+
+            int random = Random.Range(0, 4);
+
+            if (i == 1) {	
+                spawnAnArrow(random);
+            }
+            else if (i == 2) {
+                int random2 = Random.Range(0, 4);
+                
+                while (random2 == i) { 
+                    random2 = Random.Range(0, 4);
+                }
+
+                spawnAnArrow(random);
+                spawnAnArrow(random2);
+            } 
+            else if (i == 3) { //why tf isnt it going here?
+                spawnAnArrow(0);
+                print(" spawned one of three");
+                spawnAnArrow(1);
+                print (" spawned two of three");
+                spawnAnArrow(2);
+                print(" spawned three of three");
+            }
+        }
+        index++;
+        
+}
+
+    public void spawnAnArrow(int i) {
+
+        if (i == 0) {
+            Instantiate(leftArrow, spawnPointLeft.position, Quaternion.Euler(0, 0, 180), testHost);
+        }
+        if (i == 1){
+            Instantiate(rightArrow, spawnPointRight.position, Quaternion.identity, testHost);
+        }
+        if (i == 2) {
+            Instantiate(upArrow, spawnPointUp.position, Quaternion.Euler(0, 0, 90), testHost); 
+        }
+        if (i == 3) {
+            Instantiate(downArrow, spawnPointDown.position, Quaternion.Euler(0, 0, 270), testHost); 
+        }
+        numSpawned++;
+
+        
+    }
+
+
+
+}
