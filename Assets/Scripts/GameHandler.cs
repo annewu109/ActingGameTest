@@ -13,10 +13,10 @@ public class GameHandler : MonoBehaviour {
       public TMP_Text singText;
       public TMP_Text danceText;
       private string sceneName;
-      public static int level;
+      public static int level = 1;
       public static string lastLevelDied;  //allows replaying the Level where you died
       public static bool passedAudition;
-      public static string singOrDance = "dance";
+      public static string singOrDance = "sing";
 
 
       void Start(){

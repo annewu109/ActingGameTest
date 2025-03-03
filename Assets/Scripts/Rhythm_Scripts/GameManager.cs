@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour {
        }
        else if (GameHandler.level == 1) {
             if (GameHandler.singOrDance == "sing") {
+                // theMusic.volume = 5f; //<check that this isnt static
                 theMusic.clip = vocalClipTwo;
             } 
             else {
