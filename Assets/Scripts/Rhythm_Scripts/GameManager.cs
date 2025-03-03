@@ -6,8 +6,13 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
 
     public AudioSource theMusic;
-    public AudioClip vocalClip;
-    public AudioClip danceClip;
+    public AudioClip vocalClipOne;
+    public AudioClip danceClipOne;
+    public AudioClip vocalClipTwo;
+    public AudioClip danceClipTwo;
+    public AudioClip vocalClipThree;
+    public AudioClip danceClipThree;
+
 
     public bool startPlaying = false;
 
@@ -47,11 +52,35 @@ public class GameManager : MonoBehaviour {
         instance = this;
         // theMusic = GetComponent<AudioSource>(); <=?should this be uncommented? forgot
         // Set the correct audio clip based on the chosen mode.
-        if (GameHandler.singOrDance == "sing") {
-            theMusic.clip = vocalClip;
-        } else if (GameHandler.singOrDance == "dance") {
-            theMusic.clip = danceClip;
-        }
+       
+       if (GameHandler.level == 0) {
+            if (GameHandler.singOrDance == "sing") {
+                theMusic.clip = vocalClipOne;
+            } 
+            else {
+                theMusic.clip = danceClipOne;
+            }
+       }
+       else if (GameHandler.level == 1) {
+            if (GameHandler.singOrDance == "sing") {
+                theMusic.clip = vocalClipTwo;
+            } 
+            else {
+                theMusic.clip = danceClipTwo;
+            }
+       }
+       else if (GameHandler.level == 2 ) {
+            if (GameHandler.singOrDance == "sing") {
+                theMusic.clip = vocalClipThree;
+            } 
+            else {
+                theMusic.clip = danceClipThree;
+            }
+       }
+       else {
+        print("level error");
+       }
+        
 
         gameOver = false;
 

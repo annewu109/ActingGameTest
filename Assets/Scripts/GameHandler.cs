@@ -16,7 +16,7 @@ public class GameHandler : MonoBehaviour {
       public static int level;
       public static string lastLevelDied;  //allows replaying the Level where you died
       public static bool passedAudition;
-      public static string singOrDance = "sing";
+      public static string singOrDance = "dance";
 
 
       void Start(){

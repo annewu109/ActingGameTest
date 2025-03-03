@@ -11,7 +11,7 @@ public class spawnArrows : MonoBehaviour
     public GameObject rightArrow;
     public GameObject upArrow;
     public GameObject downArrow;
-    public float tempo; //<= 60/bpm
+    public float tempo; 
 
     public Transform spawnPointLeft;
     public Transform spawnPointRight;
@@ -19,7 +19,12 @@ public class spawnArrows : MonoBehaviour
     public Transform spawnPointDown;
     int[] arrowPositions;
     int[] singLevelOne = {1, 2, 1, 1, 2, 2, 1, 2, 1, 1, 1, 0, 2, 1, 2, 1, 2, 1, 1, 1, 2, 1, 3};
-    int[] danceLevelOne = {1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 2, 1, 1, 1, 2, 3};
+    int[] danceLevelOne = {1, 1, 1, 1, 2, 2, 1, 1, 2, 1, 2, 1, 2, 1, 1, 1, 2, 3};
+    int[] singLevelTwo = {1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 2, 2, 1, 1, 1, 2, 1, 2}; 
+    int[] danceLevelTwo = {1, 2, 1, 1, 2, 1, 1, 2, 3, 2, 1, 1, 2, 1, 1, 1, 2, 2, 2, 1, 1, 2, 3};
+    int[] singLevelThree = {1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 2, 0, 0, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 3, 1, 1, 1, 2, 3, 1, 3};
+    int[] danceLevelThree = {1, 1, 2, 2, 1, 1, 1, 1, 1, 2, 1, 1, 0, 3, 2, 1, 2, 1, 2, 1, 2, 1, 3, 3};
+    
     public int index;
 
     public BeatScroller myBS;
@@ -29,16 +34,37 @@ public class spawnArrows : MonoBehaviour
     {
         numSpawned = 0;
         index = 0;
-        // if (GameHandler.Level == 0) { <= bring this back once more music clips r made
+        
         tempo = 0.56f;
-        if (GameHandler.singOrDance == "sing") {
-            arrowPositions = singLevelOne;
-        }
-        else if (GameHandler.singOrDance == "dance") {
-            arrowPositions = danceLevelOne;
-        }
-        // }
 
+        if (GameHandler.level == 0) {
+            if (GameHandler.singOrDance == "sing") {
+                arrowPositions = singLevelOne;
+            } 
+            else {
+                arrowPositions = danceLevelOne;
+            }
+       }
+       else if (GameHandler.level == 1) {
+            if (GameHandler.singOrDance == "sing") {
+                arrowPositions = singLevelTwo;
+                tempo = 0.52f;
+            } 
+            else {
+                arrowPositions = danceLevelTwo;
+                tempo = 0.48f;
+            }
+       }
+       else if (GameHandler.level == 2 ) {
+            if (GameHandler.singOrDance == "sing") {
+                arrowPositions = singLevelThree;
+            } 
+            else {
+                arrowPositions = danceLevelThree;
+                tempo = 0.50f;
+            }
+            
+       }
         
         
     }
@@ -58,7 +84,6 @@ public class spawnArrows : MonoBehaviour
     public void ArrowSpawnerController() {
         if (index < arrowPositions.Length) {
             int i = arrowPositions[index];
-            print("num arrows to spawn: " + i);
 
             int random = Random.Range(0, 4);
 
@@ -75,13 +100,10 @@ public class spawnArrows : MonoBehaviour
                 spawnAnArrow(random);
                 spawnAnArrow(random2);
             } 
-            else if (i == 3) { //why tf isnt it going here?
+            else if (i == 3) {
                 spawnAnArrow(0);
-                print(" spawned one of three");
                 spawnAnArrow(1);
-                print (" spawned two of three");
                 spawnAnArrow(2);
-                print(" spawned three of three");
             }
         }
         index++;

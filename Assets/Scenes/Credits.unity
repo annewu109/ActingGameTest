@@ -929,13 +929,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Name 1
+  m_text: 'Lucas Guan
 
-    Name 2
+    Emma Li
 
-    Name 3
+    Anne Wu
 
-    Name 4
+    Scarlett Xie
 
 '
   m_isRightToLeft: 0
@@ -1213,11 +1213,11 @@ PrefabInstance:
     - target: {fileID: 4090827111210618683, guid: fe1072dd8f0b04f4bb6546a1ab4bb078, type: 3}
       propertyPath: singText
       value: 
-      objectReference: {fileID: 423283160}
+      objectReference: {fileID: 423283161}
     - target: {fileID: 4090827111210618683, guid: fe1072dd8f0b04f4bb6546a1ab4bb078, type: 3}
       propertyPath: danceText
       value: 
-      objectReference: {fileID: 423283160}
+      objectReference: {fileID: 423283161}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
