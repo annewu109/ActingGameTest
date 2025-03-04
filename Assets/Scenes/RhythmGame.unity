@@ -3727,7 +3727,7 @@ MonoBehaviour:
   finalScoreText: {fileID: 745663033}
   inFeverMode: 0
   perfectComboCount: 0
-  feverThreshold: 3
+  feverThreshold: 2
   feverDuration: 3
   feverEffect: {fileID: 1690014461}
   feverMultiplier: 2

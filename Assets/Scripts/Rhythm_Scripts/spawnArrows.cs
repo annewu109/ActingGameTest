@@ -110,7 +110,6 @@ public class spawnArrows : MonoBehaviour
 
     public void spawnAnArrow(int i) {
         if (i == 4) {
-            // Spawn a hold note – adjust the spawn point if needed.
             Instantiate(holdArrow, spawnPointLeft.position, Quaternion.identity, testHost);
             numSpawned++;
             return;
