@@ -11,6 +11,7 @@ public class spawnArrows : MonoBehaviour
     public GameObject rightArrow;
     public GameObject upArrow;
     public GameObject downArrow;
+    public GameObject holdArrow;  // Assign your hold note prefab here
     public float tempo; 
 
     public Transform spawnPointLeft;
@@ -63,10 +64,7 @@ public class spawnArrows : MonoBehaviour
                 arrowPositions = danceLevelThree;
                 tempo = 0.50f;
             }
-            
        }
-        
-        
     }
 
     // Update is called once per frame
@@ -80,7 +78,6 @@ public class spawnArrows : MonoBehaviour
         }
     }
 
-
     public void ArrowSpawnerController() {
         if (index < arrowPositions.Length) {
             int i = arrowPositions[index];
@@ -92,11 +89,9 @@ public class spawnArrows : MonoBehaviour
             }
             else if (i == 2) {
                 int random2 = Random.Range(0, 4);
-                
-                while (random2 == i) { 
+                while (random2 == random) { 
                     random2 = Random.Range(0, 4);
                 }
-
                 spawnAnArrow(random);
                 spawnAnArrow(random2);
             } 
@@ -105,13 +100,21 @@ public class spawnArrows : MonoBehaviour
                 spawnAnArrow(1);
                 spawnAnArrow(2);
             }
+            // For testing, if you want to spawn a hold note, include the value 4 in your pattern array.
+            else if (i == 4) {
+                spawnAnArrow(4);
+            }
         }
         index++;
-        
-}
+    }
 
     public void spawnAnArrow(int i) {
-
+        if (i == 4) {
+            // Spawn a hold note – adjust the spawn point if needed.
+            Instantiate(holdArrow, spawnPointLeft.position, Quaternion.identity, testHost);
+            numSpawned++;
+            return;
+        }
         if (i == 0) {
             Instantiate(leftArrow, spawnPointLeft.position, Quaternion.Euler(0, 0, 180), testHost);
         }
@@ -125,10 +128,5 @@ public class spawnArrows : MonoBehaviour
             Instantiate(downArrow, spawnPointDown.position, Quaternion.Euler(0, 0, 270), testHost); 
         }
         numSpawned++;
-
-        
     }
-
-
-
 }

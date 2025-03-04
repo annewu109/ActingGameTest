@@ -31,8 +31,5 @@ public class BeatScroller : MonoBehaviour {
         if (GameManager.gameOver) {
             Destroy(gameObject);
         }
-
-
-
     }
 }
